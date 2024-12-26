@@ -33,7 +33,6 @@ function getMatrixElementsSum(matrix) {
     })
   })
 
-  console.log(indexesToIgnore)
   return sum
 }
 

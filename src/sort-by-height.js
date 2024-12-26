@@ -20,7 +20,6 @@ function sortByHeight(arr) {
     arr[i] = nums.shift(); 
   }
   
-  console.table(arr);
   return arr;
 }
 
