@@ -13,11 +13,44 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function transform(arr) {
+  if(!Array.isArray(arr)) {
+    throw new Error ("'arr' parameter must be an instance of the Array!")};
+
+  const doubleArr = structuredClone(arr);
+
+  for(let i = 0; i < doubleArr.length; i++) {
+    switch(doubleArr[i]) {
+      case '--discard-next':
+        doubleArr.splice(i,2, false);
+        break;
+      case '--discard-prev':
+        if(i === 0) {
+          doubleArr.splice(i,1, false);
+          break
+        };
+        doubleArr.splice(i-1,2, false);
+        break;
+      case '--double-next':
+        doubleArr[i] = doubleArr[i+1];
+        break;
+      case '--double-prev':
+        if(i === 0) {
+          doubleArr.splice(i,1,false);
+          break
+        };
+        doubleArr[i] = doubleArr[i-1];
+        break;
+      default:
+        break;
+    }
+  }
+
+  return doubleArr.filter(Boolean);
 }
 
 module.exports = {
   transform
 };
+
+transform([1, 2, 3, '--discard-next', 1337, '--double-prev', 4, 5])
